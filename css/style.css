@@ -74,6 +74,10 @@ main {
 	min-height: 100vh;
 }
 
+section {
+	overflow: hidden;
+}
+
 footer {
 	background: black;
 	color: white;
