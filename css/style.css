@@ -1,0 +1,234 @@
+@font-face {
+  font-family: Work Thin;
+  src: url(../fonts/WorkSans-Thin.ttf);
+}
+@font-face {
+  font-family: Work Regular;
+  src: url(../fonts/WorkSans-Regular.ttf);
+}
+
+@keyframes stars{
+	0% {background-size: 100%, 100%;background-position-y: 100%, 100%;}
+	100% {background-size: 100%, 100%;background-position-y: 100%,0%;}
+}
+
+@keyframes morning {
+	0% {background-color:#000000;background-position-y: 100%, 100%;}
+	100% {background-color:#e09572;background-position-y: 100%, 100%;}
+}
+
+@keyframes afternoon {
+	0% {background-color:#e09572;background-position-y: 100%, 100%;}
+	100% {background-color:#e0bfb0;background-position-y: 100%, 100%;}
+}
+@keyframes evening {
+	0% {background-color:#e0bfb0;background-position-y: 100%, 100%;}
+	100% {background-color:#94624b;background-position-y: 100%, 100%;}
+}
+@keyframes night {
+	0% {background-color:#94624b;background-position-y: 100%, 100%;}
+	100% {background-color:#000000;background-position-y: 100%, 100%;}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	background: url('../img/background.png') bottom center fixed no-repeat, #000000;
+	background-size: 100%, 100%;
+}
+
+html.morning {
+	background: url('../img/background.png') bottom center fixed no-repeat,#e09572;
+	background-size: 100%, 100%;
+	animation: 2s morning ease-in-out forwards;
+}
+html.afternoon {
+	background: url('../img/background.png') bottom center fixed no-repeat,#e0bfb0;
+	background-size: 100%, 100%;
+	animation: 2s afternoon ease-in-out forwards;
+}
+html.evening {
+	background: url('../img/background.png') bottom center fixed no-repeat,#94624b;
+	background-size: 100%, 100%;
+	animation: 2s evening ease-in-out forwards;
+}
+html.night {
+	background: url('../img/background.png') bottom center fixed no-repeat,url('../img/stars.png');
+	background-size: 100%, 100%;
+	animation: 2s night ease-in-out forwards, 60s 2s stars linear infinite;
+}
+
+html.night #container {
+	opacity: 1;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+main {
+	perspective: 800px;
+	min-height: 100vh;
+}
+
+footer {
+	background: black;
+	color: white;
+	width: 100%;
+	padding: .5em;
+	position: absolute;
+	bottom: 0;
+}
+
+footer span {
+	cursor: pointer;
+}
+
+#clock {
+	font-size: 4em;
+	font-family: 'Work Thin';
+	font-weight: 100;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	color: #ffffff;
+}
+
+#container{
+  display: block;
+  position: relative;
+  background: url('../img/wijzerplaat.png') center center no-repeat;
+  background-size: 100%;
+  margin: 0 auto;
+  height: 480px;
+  width: 480px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate3d(1, 0, 0, 45deg);
+  opacity: 0.2;
+}
+
+.box{
+  display: block;
+  position: absolute;
+  height: 70px;
+  width: 10px;
+  border-radius: 10px;
+}
+
+
+.second{
+  height: 180px;
+  width: 2px;
+  opacity: 0.5;
+  background-color: white;
+}
+
+.minute{
+  height: 160px;
+  width: 5px;
+  opacity: 0.5;
+  
+  background-color: white;
+}
+
+.hour{
+  height: 140px;
+  width: 10px;
+  opacity: 0.5;
+  
+  background-color: white;
+}
+
+@media screen and (min-width: 480px) {
+	#clock {
+		font-size: 6em;
+	}
+}
+@media screen and (min-width: 640px) {
+	#clock {
+		font-size: 10em;
+	}
+}
+@media screen and (min-width: 768px) {
+	#clock {
+		font-size: 14em;
+	}
+	@keyframes stars{
+		0% {background-size: 100%, 100%;background-position-y: 150%, 100%;}
+		100% {background-size: 100%, 100%;background-position-y: 150%,200%;}
+	}
+
+	@keyframes morning {
+		0% {background-color:#000000;background-position-y: 150%, 100%;}
+		100% {background-color:#e09572;background-position-y: 125%, 100%;}
+	}
+
+	@keyframes afternoon {
+		0% {background-color:#e09572;background-position-y: 125%, 100%;}
+		100% {background-color:#e0bfb0;background-position-y: 100%, 100%;}
+	}
+	@keyframes evening {
+		0% {background-color:#e0bfb0;background-position-y: 100%, 100%;}
+		100% {background-color:#94624b;background-position-y: 125%, 100%;}
+	}
+	@keyframes night {
+		0% {background-color:#94624b;background-position-y: 125%, 100%;}
+		100% {background-color:#000000;background-position-y: 150%, 100%;}
+	}
+}
+@media screen and (min-width: 1024px) {
+
+	#clock {
+		font-size: 18em;
+	}
+	#container {
+		width: 500px;
+		height: 500px;
+	    position: absolute;
+	    left: 50%;
+    	top: 10%;
+    	transform: rotate3d(1,0,0,-45deg) scale(2) translateX(-25%);
+	}
+	.hour {
+		height: 140px;
+	}
+	.minute {
+		height: 160px;
+
+	}
+	.second {
+		height: 180px;
+	}
+}
+
+@media screen and (min-width: 1367px) {
+	@keyframes stars{
+		0% {background-size: 100%, 100%;background-position-y: 400%, 100%;}
+		100% {background-size: 100%, 100%;background-position-y: 400%,200%;}
+	}
+
+	@keyframes morning {
+		0% {background-color:#000000;background-position-y: 400%, 100%;}
+		100% {background-color:#e09572;background-position-y: 300%, 100%;}
+	}
+
+	@keyframes afternoon {
+		0% {background-color:#e09572;background-position-y: 300%, 100%;}
+		100% {background-color:#e0bfb0;background-position-y: 200%, 100%;}
+	}
+	@keyframes evening {
+		0% {background-color:#e0bfb0;background-position-y: 200%, 100%;}
+		100% {background-color:#94624b;background-position-y: 300%, 100%;}
+	}
+	@keyframes night {
+		0% {background-color:#94624b;background-position-y: 300%, 100%;}
+		100% {background-color:#000000;background-position-y: 400%, 100%;}
+	}
+}
