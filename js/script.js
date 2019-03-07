@@ -47,15 +47,10 @@ function getTime() {
 		document.documentElement.classList.remove('evening');
 	}
 
-	if (h.toString().length == 1) {
-		h = '0' + h;
-	}
-	if (m.toString().length == 1) {
-		m = '0'  + m;
-	}
-	if (s.toString().length == 1) {
-		s = '0'  + s;
-	}
+	h = (h < 10) ? "0" + h : h;
+	m = (m < 10) ? "0" + m : m;
+	s = (s < 10) ? "0" + s : s;
+
 	return h + ':' + m +':' + s;
 }
 
@@ -64,5 +59,6 @@ window.onload = function() {
 	document.getElementById('clock').innerHTML = getTime();
 	setInterval(() => {
 		document.getElementById('clock').innerHTML = getTime();
+		document.getElementsByTagName('title')[0].innerHTML = getTime();
 	},1000);
 };

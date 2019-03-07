@@ -61,7 +61,7 @@ html.night {
 }
 
 html.night #container {
-	opacity: 1;
+	opacity: 0.8;
 }
 
 body {
