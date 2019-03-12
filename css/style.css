@@ -25,6 +25,7 @@ body {
 main {
 	perspective: 800px;
 	min-height: 90vh;
+	min-height: -webkit-fill-available;
 }
 
 section {
