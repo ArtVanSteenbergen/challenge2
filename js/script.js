@@ -56,10 +56,10 @@ $(document).ready(function() {
 
   var tl = new TimelineMax();
 
-  var ripleyReset = TweenMax.set(ripley, {top: '300px'});
+  TweenMax.set(ripley, {top: '600px'});
 
   // var ripleyTween = TweenMax.to(ripley, 1, {top: '0px', ease: Expo.easeOut}).yoyo(true).paused(true);
-  tl.fromTo(ripley, 0.5, {top: '300px', ease: Expo.easeOut},{top: '0px', ease: Expo.easeOut}).yoyo(true).paused(true);
+  tl.fromTo(ripley, 1, {top: '600px', ease: Expo.easeOut},{top: '0px', ease: Expo.easeOut}).yoyo(true).paused(true);
 
   function hoursShow(h) {
     tl.restart().repeat(h*2-1);
