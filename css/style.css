@@ -24,7 +24,7 @@ body {
 
 main {
 	perspective: 800px;
-	min-height: 100vh;
+	min-height: 90vh;
 }
 
 section {
@@ -155,6 +155,9 @@ footer .longLabel {
 	}
 }
 @media screen and (min-width: 1024px) {
+	main {
+		min-height: 100vh;
+	}
 
 	#digitalClock {
 		font-size: 18em;
