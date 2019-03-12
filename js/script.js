@@ -18,8 +18,8 @@ $(document).ready(function() {
   analogClock = $('#analogClock'),
   ripley = $('#ripley'),
   ripleySpeaks = $('#ripleySpeaks'),
-  unmuteButton = $('#unmuteButton'),
-  muteButton = $('#muteButton');
+  unmuteButton = $('#unmute'),
+  muteButton = $('#mute'),
 
   ripleyCurrentHour = 0,
   hms = '00:00:00',
@@ -40,8 +40,14 @@ $(document).ready(function() {
   var timeTween = TweenMax.to(html, fullDay, {
     repeat: -1
   });
+  var init = new TimelineMax();
 
-  var clockTween = TweenMax.fromTo(digitalClock, 2, {bottom: -600},{bottom: 0, ease: Elastic.easeOut});
+  init.fromTo(digitalClock, 2, {bottom: -600, autoAlpha: 0},{bottom: 0, autoAlpha: 1, ease: Elastic.easeOut})
+  .fromTo('html', 2,{backgroundImage: 'url()',backgroundPosition: '0 500%', backgroundRepeat: 'no-repeat'},{backgroundImage: 'url(img/mars.png)',backgroundPosition: '0 110%', backgroundRepeat: 'no-repeat'}, '-=2')
+  .from('footer', 2,{y: '-1000%', autoAlpha: 0,  ease: Bounce.easeOut}, '-=2')
+  .from(analogClock, 2,{rotationX: '0deg', autoAlpha: 0,  ease: Bounce.easeOut}, '-=2')
+  .staggerFrom('footer div', 0.5, {x: '20px', autoAlpha: 0}, 0.1, '-=0.5');
+
 
   var hourTween = TweenMax.to(pointerH, twelveHours, {
     rotation: '360',
@@ -63,8 +69,6 @@ $(document).ready(function() {
     repeat: -1,
     paused: true
   });
-
-  TweenMax.set(ripley, {top: '600px'});  
 
   // let Ripley tell the time hourly with a "Ding" if audio isn't muted
   function hoursShow(h) {
@@ -115,6 +119,7 @@ $(document).ready(function() {
   // interval function of the anolog clock that also calls the timeOfDay function and the showDigitalClock function
   function showTime() {
     timeOffset = timeOffsetHours * 3600000 + timeOffsetMinutes * 60000 + timeOffsetSeconds * 1000;
+    console.log(timeOffsetHours + ':' + timeOffsetMinutes + ':'  + timeOffsetSeconds);
     datetime =  new Date(Date.now() + timeOffset);
     h = datetime.getHours();
     m = datetime.getMinutes();
@@ -176,6 +181,8 @@ $(document).ready(function() {
   // set time every second
   setInterval(function() {
     showTime();
+
+
   }, 1000);
 
   // onclick events for footer controls
@@ -186,6 +193,6 @@ $(document).ready(function() {
   $('#addTenSeconds').click(() => setTimeOffset('seconds', 10));
   $('#subtractTenSeconds').click(() => setTimeOffset('seconds', -10));
   $('#resetTimeOffset').click(() => {timeOffsetHours = 0;timeOffsetMinutes = 0;timeOffsetSeconds = 0;});
-  muteButton.click(()=>{mute = true; muteButton.hide(); unmuteButton.show();});
-  unmuteButton.click(()=>{mute = false; unmuteButton.hide(); muteButton.show();});
+  muteButton.click(()=>{mute = true; TweenMax.to(muteButton, 0.5, {x: '-23px',autoAlpha:0});  TweenMax.to(unmuteButton, 0.5, {x: '0px',autoAlpha:1}); });
+  unmuteButton.click(()=>{mute = false; TweenMax.to(unmuteButton, 0.5, {x: '0px',autoAlpha:0});  TweenMax.to(muteButton, 0.5, {x: '-23px', autoAlpha:1}); });
 });

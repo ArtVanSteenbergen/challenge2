@@ -13,7 +13,7 @@
 }
 
 html {
-	background: url('../img/mars.png') bottom center fixed no-repeat, #000000;
+	background: #000000;
 	background-size: 100%, 100%;
 }
 
@@ -52,6 +52,7 @@ section {
 #ripley {
 	position: absolute;
 	width: 300px;
+	top: 600px;
 }
 
 footer {
@@ -64,15 +65,16 @@ footer {
 	font-family: Work Regular;
 }
 
-#mute {display: none;}
+#mute {visibility: hidden; opacity: 0;}
 
-footer span {
+footer div {
 	cursor: pointer;
 	padding: .25em;
 	user-select: none;
+	display: inline-block;
 }
 
-footer span .longLabel {
+footer div .longLabel {
 	display: none;
 }
 
@@ -99,7 +101,7 @@ footer span .longLabel {
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: rotate3d(1, 0, 0, 45deg);
+  transform: rotate3d(1, 0, 0, 40deg);
   opacity: 0.5;
 }
 
@@ -143,10 +145,10 @@ footer span .longLabel {
 	#digitalClock {
 		font-size: 10em;
 	}
-	footer span {
+	footer div {
 		padding: 0;
 	}
-	footer span .longLabel {
+	footer div .longLabel {
 		display: inline-block;
 	}
 }
