@@ -8,7 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
-	<script type="text/javascript" src="js/tweenmaxclock.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TimelineMax.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/TextPlugin.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
@@ -17,21 +18,24 @@
 			
 		</header>
 		<section>
-			<div id="container">
+			<div id="analogClock">
 				<div class="box second clockS"></div>
 				<div class="box minute clockM"></div>
 				<div class="box hour clockH"></div>
 			</div>
-			<span id="clock"></span>
+			<span id="digitalClock"></span>
+			<div id="ripleyOuter">
+				<img id="ripley" src="img/suit.png">
+			</div>
 		</section>
 		<footer>
-			<span onclick="setTimeOffset('hours', 1)">+ 1 h<span>our</span></span><span> | </span>
-			<span onclick="setTimeOffset('hours',-1)">- 1 hour</span></span><span> | </span>
-			<span onclick="setTimeOffset('minutes', 1)">+ 1 minute</span></span><span> | </span>
-			<span onclick="setTimeOffset('minutes',-1)">- 1 minute</span></span><span> | </span>
-			<span onclick="setTimeOffset('seconds', 10)">+ 10 seconds</span></span><span> | </span>
-			<span onclick="setTimeOffset('seconds',-10)">- 10 seconds</span></span>
-
+			<span id="addHour">+ 1 h<span class="longLabel">our</span></span><span> | </span>
+			<span id="subtractHour">- 1 h<span class="longLabel">our</span></span><span> | </span>
+			<span id="addMinute">+ 1 m<span class="longLabel">inute</span></span><span> | </span>
+			<span id="subtractMinute">- 1 m<span class="longLabel">inute</span></span><span> | </span>
+			<span id="addTenSeconds">+ 10 s<span class="longLabel">econds</span></span><span> | </span>
+			<span id="subtractTenSeconds">- 10 s<span class="longLabel">econds</span></span><span> | </span>
+			<span id="resetTimeOffset">reset</span></span>
 		</footer>
 	</main>
 </body>
