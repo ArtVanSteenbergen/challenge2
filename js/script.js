@@ -1,33 +1,36 @@
 $(document).ready(function() {
-  var tl = new TimelineMax();
-
-  var timeOffset = 0,
+  var tl = new TimelineMax(),
+  timeOffset = 0,
   timeOffsetHours = 0,
   timeOffsetMinutes = 0,
-  timeOffsetSeconds = 0;
+  timeOffsetSeconds = 0,
 
-  var datetime = new Date(Date.now() + timeOffset),
+  datetime = new Date(Date.now() + timeOffset),
   h = datetime.getHours(),
   m = datetime.getMinutes(),
-  s = datetime.getSeconds();
+  s = datetime.getSeconds(),
 
-  var html = $('html'),
+  html = $('html'),
   pointerH = $('.clockH'),
   pointerM = $('.clockM'),
   pointerS = $('.clockS'),
   digitalClock = $('#digitalClock'),
   analogClock = $('#analogClock'),
-  ripley = $('#ripley');
-  ripleySpeaks = $('#ripleySpeaks');
-  muteButton = $('#mute');
-  unmuteButton = $('#unmute');
+  ripley = $('#ripley'),
+  ripleySpeaks = $('#ripleySpeaks'),
+  unmuteButton = $('#unmuteButton'),
+  muteButton = $('#muteButton');
 
-  var oneSecond = 60 / 60; // 1 second
-  var oneHour = 60 * 60; //1 hour tween
-  var twelveHours = 12 * 60 * 60; //12 hour tween
-  var fullDay = 24 * 60 * 60; //24 hour tween
+  ripleyCurrentHour = 0,
+  hms = '00:00:00',
 
-  var mute = true;
+  oneSecond = 60 / 60, // 1 second
+  oneHour = 60 * 60, //1 hour tween
+  twelveHours = 12 * 60 * 60, //12 hour tween
+  fullDay = 24 * 60 * 60, //24 hour tween
+  
+  mute = true,
+  audio = new Audio();
 
   TweenMax.set('.second, .hour, .minute', {
     yPercent: -50,
@@ -61,29 +64,28 @@ $(document).ready(function() {
     paused: true
   });
 
-  TweenMax.set(ripley, {top: '600px'});
-  var game = 0;
-  
+  TweenMax.set(ripley, {top: '600px'});  
+
+  // let Ripley tell the time hourly with a "Ding" if audio isn't muted
   function hoursShow(h) {
-    game=0;
+    ripleyCurrentHour=0;
     tl.fromTo(ripley, 1, {top: '600px', ease: Expo.easeOut},{top: '0px', ease: Expo.easeOut, onComplete:speak}, "ripley")
-    .fromTo(ripleySpeaks,0.25,{y: '20px', x: '40px', autoAlpha: 0, ease: Expo.easeOut},{y: '0px',x: '0px',autoAlpha: 1,ease: Expo.easeOut}, "ripley +=0.1")
+    .fromTo(ripleySpeaks,0.25,{y: '20px', x: '40px', autoAlpha: 0, ease: Expo.easeOut},{y: '0px',x: '0px',autoAlpha: 1,ease: Expo.easeOut}, "ripley +0.1")
     .yoyo(true).paused(true);
 
     tl.restart().repeat(h*2-1);
   }
 
+  // count hours for Ripley and make a sound
   function speak() {
-    game++;
+    ripleyCurrentHour++;
     if (!mute) {
-      var audio = new Audio('bell.mp3');
+      audio = new Audio('bell.mp3');
       audio.play();
     }
-    $('#ripleySpeaks').html(game);
+    $('#ripleySpeaks').html(ripleyCurrentHour);
   }
 
-  muteButton.click(()=>{mute = true; muteButton.hide(); unmuteButton.show();});
-  unmuteButton.click(()=>{mute = false; unmuteButton.hide(); muteButton.show();});
 
   // add time or retrects time per pointer in milliseconds
   function setTimeOffset(type, amount) {
@@ -106,7 +108,7 @@ $(document).ready(function() {
     h = (h < 10) ? '0' + h : h;
     m = (m < 10) ? '0' + m : m;
     s = (s < 10) ? '0' + s : s;
-    var hms = h + ':' + m + ':' + s;
+    hms = h + ':' + m + ':' + s;
     TweenMax.set(digitalClock,{text:{value: hms}});
   }
 
@@ -118,6 +120,7 @@ $(document).ready(function() {
     m = datetime.getMinutes();
     s = datetime.getSeconds();
 
+    // convert 24 to 12 and show the time hourly
     if (m < 1 && s < 1) {
       if (h == 0) {
         hoursShow(12);
@@ -129,8 +132,18 @@ $(document).ready(function() {
       }
     }
 
+    // play sound on the half hour mark when audio isn't muted
+    if (m == 30 && s < 1) {
+      if (!mute) {
+        audio = new Audio('bell.mp3');
+        audio.play();
+      }
+    }
+
+    // update digital clock
     showDigitalClock(h,m,s);
 
+    // convert to seconds for TweenMax
     minutesAsSeconds = m * 60;
     hoursAsSeconds = h * 60 * 60 + minutesAsSeconds;
     secondsAsSeconds = s / 60;
@@ -141,6 +154,7 @@ $(document).ready(function() {
     minuteTween.progress(minutesAsSeconds / oneHour);
     secondsTween.progress(secondsAsSeconds / oneSecond);
 
+    // change background based on time of day
     if (timeTween.progress() >= 0 && timeTween.progress() < 0.25) {
       TweenMax.to('html', 2, {backgroundColor: '#000000'});
     }
@@ -156,12 +170,15 @@ $(document).ready(function() {
 
   }
 
+  // initial visualisaton of time
   showTime();
 
+  // set time every second
   setInterval(function() {
     showTime();
   }, 1000);
 
+  // onclick events for footer controls
   $('#addHour').click(() => setTimeOffset('hours', 1));
   $('#subtractHour').click(() => setTimeOffset('hours', -1));
   $('#addMinute').click(() => setTimeOffset('minutes', 1));
@@ -169,4 +186,6 @@ $(document).ready(function() {
   $('#addTenSeconds').click(() => setTimeOffset('seconds', 10));
   $('#subtractTenSeconds').click(() => setTimeOffset('seconds', -10));
   $('#resetTimeOffset').click(() => {timeOffsetHours = 0;timeOffsetMinutes = 0;timeOffsetSeconds = 0;});
+  muteButton.click(()=>{mute = true; muteButton.hide(); unmuteButton.show();});
+  unmuteButton.click(()=>{mute = false; unmuteButton.hide(); muteButton.show();});
 });
