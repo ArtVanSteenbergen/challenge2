@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  var tl = new TimelineMax();
+
   var timeOffset = 0,
   timeOffsetHours = 0,
   timeOffsetMinutes = 0,
@@ -16,11 +18,16 @@ $(document).ready(function() {
   digitalClock = $('#digitalClock'),
   analogClock = $('#analogClock'),
   ripley = $('#ripley');
+  ripleySpeaks = $('#ripleySpeaks');
+  muteButton = $('#mute');
+  unmuteButton = $('#unmute');
 
   var oneSecond = 60 / 60; // 1 second
   var oneHour = 60 * 60; //1 hour tween
   var twelveHours = 12 * 60 * 60; //12 hour tween
   var fullDay = 24 * 60 * 60; //24 hour tween
+
+  var mute = true;
 
   TweenMax.set('.second, .hour, .minute', {
     yPercent: -50,
@@ -54,16 +61,29 @@ $(document).ready(function() {
     paused: true
   });
 
-  var tl = new TimelineMax();
-
   TweenMax.set(ripley, {top: '600px'});
-
-  // var ripleyTween = TweenMax.to(ripley, 1, {top: '0px', ease: Expo.easeOut}).yoyo(true).paused(true);
-  tl.fromTo(ripley, 1, {top: '600px', ease: Expo.easeOut},{top: '0px', ease: Expo.easeOut}).yoyo(true).paused(true);
-
+  var game = 0;
+  
   function hoursShow(h) {
+    game=0;
+    tl.fromTo(ripley, 1, {top: '600px', ease: Expo.easeOut},{top: '0px', ease: Expo.easeOut, onComplete:speak}, "ripley")
+    .fromTo(ripleySpeaks,0.25,{y: '20px', x: '40px', autoAlpha: 0, ease: Expo.easeOut},{y: '0px',x: '0px',autoAlpha: 1,ease: Expo.easeOut}, "ripley +=0.1")
+    .yoyo(true).paused(true);
+
     tl.restart().repeat(h*2-1);
   }
+
+  function speak() {
+    game++;
+    if (!mute) {
+      var audio = new Audio('bell.mp3');
+      audio.play();
+    }
+    $('#ripleySpeaks').html(game);
+  }
+
+  muteButton.click(()=>{mute = true; muteButton.hide(); unmuteButton.show();});
+  unmuteButton.click(()=>{mute = false; unmuteButton.hide(); muteButton.show();});
 
   // add time or retrects time per pointer in milliseconds
   function setTimeOffset(type, amount) {
