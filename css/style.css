@@ -84,8 +84,6 @@ footer div .longLabel {
 	font-weight: 100;
 	position: absolute;
 	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
 	color: #ffffff;
 }
 
@@ -101,7 +99,6 @@ footer div .longLabel {
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: rotate3d(1, 0, 0, 40deg);
   opacity: 0.5;
 }
 
@@ -166,9 +163,8 @@ footer div .longLabel {
 		width: 500px;
 		height: 500px;
 	    position: absolute;
-	    left: 50%;
-    	top: 10%;
-    	transform: rotate3d(1,0,0,45deg) scale(2) translateX(-25%);
+	    right: 128px;
+    	top: 64px;
 	}
 	.hour {
 		height: 140px;
