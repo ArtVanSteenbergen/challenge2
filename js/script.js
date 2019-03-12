@@ -114,6 +114,7 @@ $(document).ready(function() {
     s = (s < 10) ? '0' + s : s;
     hms = h + ':' + m + ':' + s;
     TweenMax.set(digitalClock,{text:{value: hms}});
+    TweenMax.set('title',{text:{value: hms}});
   }
 
   // interval function of the anolog clock that also calls the timeOfDay function and the showDigitalClock function
