@@ -10,7 +10,7 @@ $(document).ready(function() {
   DATEONSCREEN = $('#date'),
   RIPLEY = $('#ripley'),
   RIPLEYSPEAKS = $('#ripleySpeaks'),
-  UTCTOGGLE = $('#UtcToggle'),
+  UTCTOGGLE = $('#utcToggle'),
   UNMUTEBUTTON = $('#unmute'),
   MUTEBUTTON = $('#mute'),
 
