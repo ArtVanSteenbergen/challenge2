@@ -3,7 +3,7 @@ $(document).ready(function() {
   const
   HTML = $('html'),
   POINTERH = $('.clockH'),
-  POINTERM = $('.clockI'),
+  POINTERI = $('.clockI'),
   POINTERS = $('.clockS'),
   DIGITALCLOCK = $('#digitalClock'),
   ANALOGCLOCK = $('#analogClock'),
@@ -54,7 +54,7 @@ $(document).ready(function() {
 
   // set rotation for every pointer and set a 24h timetween
   hourTween = TweenMax.to(POINTERH, TWELVEHOURS, {rotation: '360', ease: Linear.easeNone, repeat: -1, paused: true}),
-  minuteTween = TweenMax.to(POINTERM, ONEHOUR, {rotation: '360', ease: Linear.easeNone, repeat: -1, paused: true}),
+  minuteTween = TweenMax.to(POINTERI, ONEHOUR, {rotation: '360', ease: Linear.easeNone, repeat: -1, paused: true}),
   secondsTween = TweenMax.to(POINTERS, ONESECOND, {rotation: '360', ease: Linear.easeNone, repeat: -1, paused: true}),
   timeTween = TweenMax.to(HTML, FULLDAY, {repeat: -1});
 
