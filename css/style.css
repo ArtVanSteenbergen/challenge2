@@ -7,7 +7,6 @@
   src: url(../fonts/WorkSans-Regular.ttf);
 }
 
-
 * {
 	box-sizing: border-box;
 }
@@ -24,209 +23,189 @@ body {
 
 main {
 	perspective: 800px;
+	min-height: 100%;
 	min-height: 90vh;
 	min-height: -webkit-fill-available;
 }
 
 section {
-	overflow: hidden;
 	display: block;
+	overflow: hidden;
+}
+
+.box{
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 70px;
+  border-radius: 10px;
+}
+
+.second {
+  width: 2px;
+  height: 130px;
+  opacity: 0.5;
+  background-color: white;
+}
+
+.minute {
+  width: 5px;
+  height: 100px;
+  opacity: 0.5;
+  background-color: #ffffff;
+}
+
+.hour {
+  width: 10px;
+  height: 70px;
+  opacity: 0.5;
+  background-color: #ffffff;
+}
+
+#analogClock{
+  display: block;
+  display: flex;
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  background: url('../img/wijzerplaat.png') center center no-repeat;
+  background-size: 100%;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+#digitalClock {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: 0;
+	padding: 0;
+	font-size: 4em;
+	font-family: 'Work Thin';
+	font-weight: 100;
+	color: #ffffff;
+}
+
+#date {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Work Regular';
+	font-size: 1em;
+	font-weight: 100;
+	color: #ffffff;
+	text-align: center;
 }
 
 
 #ripleyOuter {
 	position: absolute;
+	overflow: hidden;
 	bottom: 0;
 	right: 0;
-	overflow: hidden;
 	width: 300px;
 	height: 600px;
 }
 
 #ripleySpeaks {
+	margin: 40px;
 	color: #fff;
 	font-family: Work Regular;
 	font-size: 40px;
-	margin: 40px;
 }
 
 #ripley {
 	position: absolute;
-	width: 300px;
 	top: 600px;
+	width: 300px;
 }
 
 footer {
-	background: black;
-	color: white;
-	width: 100%;
-	padding: .5em;
 	position: fixed;
 	bottom: 0;
+	padding: .5em;
+	width: 100%;
+	background: black;
+	color: white;
 	font-family: Work Regular;
 }
 
-#mute {visibility: hidden; opacity: 0;}
 
 footer div {
-	cursor: pointer;
-	padding: .25em;
-	user-select: none;
 	display: inline-block;
+	padding: .25em;
 	font-family: Work Regular;
 	font-weight: bold;
+	cursor: pointer;
+	user-select: none;
 }
 
 footer .longLabel {
 	display: none;
 }
 
-#digitalClock {
-	font-size: 4em;
-	font-family: 'Work Thin';
-	font-weight: 100;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin: 0;
-	padding: 0;
-	color: #ffffff;
-}
-
-#analogClock{
-  display: block;
-  position: relative;
-  background: url('../img/wijzerplaat.png') center center no-repeat;
-  background-size: 100%;
-  margin: 0 auto;
-  height: 300px;
-  width: 300px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#date {
-	font-size: 1em;
-	font-family: 'Work Regular';
-	font-weight: 100;
-	position: absolute;
-	left: 50%;
-	top: 60%;
-	margin: 0;
-	padding: 0;
-	color: #ffffff;
-	width: 100%;
-	text-align: center;
-}
-
-.box{
-  display: block;
-  position: absolute;
-  height: 70px;
-  width: 10px;
-  border-radius: 10px;
-}
-
-
-.second {
-  height: 130px;
-  width: 2px;
-  opacity: 0.5;
-  background-color: white;
-}
-
-.minute {
-  height: 100px;
-  width: 5px;
-  opacity: 0.5;
-  
-  background-color: #ffffff;
-}
-
-.hour {
-  height: 70px;
-  width: 10px;
-  opacity: 0.5;
-  background-color: #ffffff;
+#mute {
+	visibility: hidden;
+	opacity: 0;
 }
 
 @media screen and (min-width: 480px) {
-	#digitalClock {
-		font-size: 6em;
-	}
+	#digitalClock {font-size: 6em;}
 	#date {
-		font-size: 1.2em;
 		top: 62%;
+		font-size: 1.2em;
 	}
 }
 @media screen and (min-width: 640px) {
-	#digitalClock {
-		font-size: 10em;
-	}
-	#date {
-		font-size: 1.4em;
-	}
-	footer div {
-		padding: 0;
-	}
-	footer .longLabel {
-		display: inline-block;
-	}
+	#digitalClock {font-size: 10em;}
+	#date {font-size: 1.4em;}
+
+	footer div {padding: 0;}
+	footer .longLabel {display: inline-block;}
 }
 @media screen and (min-width: 768px) {
-	#digitalClock {
-		font-size: 14em;
-	}
+	#digitalClock {font-size: 14em;}
+
 	#date {
-		font-size: 2.5em;
 		top: 65%;
+		font-size: 2.5em;
 	}
 }
 @media screen and (min-width: 1024px) {
-	main {
-		min-height: 100vh;
-	}
+	main {min-height: 100vh;}
 
-	footer div {
-		padding: 0.5em;
-	}
-
-	#digitalClock {
-		font-size: 18em;
-	}
+	#digitalClock {font-size: 18em;}
 	#date {
-		font-size: 3.5em;
 		top: 75%;
+		font-size: 3.5em;
 	}
 	#analogClock {
+		position: absolute;
 		width: 500px;
 		height: 500px;
-		position: absolute;
-		right: 128px;
 		top: 64px;
+		right: 128px;
 	}
-	.hour {
-		height: 140px;
-	}
-	.minute {
-		height: 160px;
 
-	}
-	.second {
-		height: 180px;
-	}
+	.hour {height: 140px;}
+	.minute {height: 160px;}
+	.second {height: 180px;}
+
+	footer div {padding: 0.5em;}
 }
 
 @media screen and (min-width: 1024px) and (max-height: 500px) {
-	#date {
-		top: 80%;
-	}
+	#date {top: 80%;}
+
 	#analogClock {
 		width: 460px;
 		height: 460px;
-		right: 32px;
 		top: 32px;
+		right: 32px;
 	}
 }
