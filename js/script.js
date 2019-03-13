@@ -60,7 +60,7 @@ $(document).ready(function() {
   .fromTo(digitalClock, 3, {y: '50%', x:'-50%', autoAlpha: 0},{y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3')
   .to(dateOnScreen, 3, {y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3')
   .to('main', 3, {backgroundColor: 'rgba(0,0,0,0.5)', ease: Elastic.easeOut}, '-=3')
-  .to('main', 3, {backgroundColor: 'rgba(0,0,0,0.2)', ease: Linear.easeNone});
+  .to('main', 1.5, {backgroundColor: 'rgba(0,0,0,0.2)', ease: Linear.easeNone}, '-=1.5');
 
 
   var hourTween = TweenMax.to(pointerH, twelveHours, {
