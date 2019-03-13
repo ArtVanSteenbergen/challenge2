@@ -225,7 +225,11 @@ $(document).ready(function() {
   // set time every second
   setInterval(function() {
     showTime();
-
+      if (!mute) {
+        var tick = new Audio('tick.mp3');
+        tick.volume = 0.01;
+        tick.play();
+      }
 
   }, 1000);
 
