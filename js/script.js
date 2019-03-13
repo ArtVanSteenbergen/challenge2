@@ -5,10 +5,17 @@ $(document).ready(function() {
   timeOffsetMinutes = 0,
   timeOffsetSeconds = 0,
 
+  daysOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+  monthsOfYear = ['nope','January','February','March','April','May','June','July','August','September','October','November','December'],
   datetime = new Date(Date.now() + timeOffset),
   h = datetime.getHours(),
-  m = datetime.getMinutes(),
+  i = datetime.getMinutes(),
   s = datetime.getSeconds(),
+  n = daysOfWeek[datetime.getDay()],
+  d = datetime.getDate(),
+  m = monthsOfYear[datetime.getMonth()],
+  Y = datetime.getFullYear(),
+  date = '',
 
   html = $('html'),
   pointerH = $('.clockH'),
@@ -16,13 +23,16 @@ $(document).ready(function() {
   pointerS = $('.clockS'),
   digitalClock = $('#digitalClock'),
   analogClock = $('#analogClock'),
+  dateOnScreen = $('#date'),
   ripley = $('#ripley'),
   ripleySpeaks = $('#ripleySpeaks'),
+  utcToggle = $('#utcToggle'),
   unmuteButton = $('#unmute'),
   muteButton = $('#mute'),
 
   ripleyCurrentHour = 0,
-  hms = '00:00:00',
+  his = '00:00:00',
+  utc = false,
 
   oneSecond = 60 / 60, // 1 second
   oneHour = 60 * 60, //1 hour tween
@@ -42,11 +52,13 @@ $(document).ready(function() {
   });
   var init = new TimelineMax();
 
-  init.fromTo('html', 2,{backgroundImage: 'url()',backgroundPosition: '0 500%', backgroundRepeat: 'no-repeat'},{backgroundImage: 'url(img/mars.png)',backgroundPosition: '0 100%', backgroundRepeat: 'no-repeat'})
+  init.set(dateOnScreen, {y: '50%', x:'-50%', autoAlpha: 0})
+  .fromTo('html', 2,{backgroundImage: 'url()',backgroundPosition: '0 500%', backgroundRepeat: 'no-repeat'},{backgroundImage: 'url(img/mars.png)',backgroundPosition: '0 100%', backgroundRepeat: 'no-repeat'})
   .from('footer', 2,{y: '-1000%', autoAlpha: 0,  ease: Bounce.easeOut}, '-=1')
   .from(analogClock, 2,{rotationX: '90deg',y: '-200px', autoAlpha: 0,  ease: Elastic.easeOut}, '-=1')
   .staggerFrom('footer div', 0.5, {x: '20px', autoAlpha: 0}, 0.1, '-=0.5')
-  .fromTo(digitalClock, 3, {top: '50%',y: '50%', x:'-50%', autoAlpha: 0},{top: '50%',y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3');
+  .fromTo(digitalClock, 3, {y: '50%', x:'-50%', autoAlpha: 0},{y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3')
+  .to(dateOnScreen, 3, {y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3');
 
 
   var hourTween = TweenMax.to(pointerH, twelveHours, {
@@ -107,27 +119,46 @@ $(document).ready(function() {
     }
   }
 
+  function showDate(date) {
+    if (dateOnScreen.html() != '') {
+      TweenMax.fromTo(dateOnScreen, 3, {top: '60%',y: '-150%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut},{top: '60%',y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut});
+    }
+    dateOnScreen.html(date);
+  }
+
   // display the clock in 6 digits in the #clock element
-  function showDigitalClock(h,m,s) {
+  function showDigitalClock(h,i,s) {
     h = (h < 10) ? '0' + h : h;
-    m = (m < 10) ? '0' + m : m;
+    i = (i < 10) ? '0' + i : i;
     s = (s < 10) ? '0' + s : s;
-    hms = h + ':' + m + ':' + s;
-    TweenMax.set(digitalClock,{text:{value: hms}});
-    TweenMax.set('title',{text:{value: hms}});
+    his = h + ':' + i + ':' + s;
+    TweenMax.set(digitalClock,{text:{value: his}});
+    TweenMax.set('title',{text:{value: his}});
   }
 
   // interval function of the anolog clock that also calls the timeOfDay function and the showDigitalClock function
   function showTime() {
     timeOffset = timeOffsetHours * 3600000 + timeOffsetMinutes * 60000 + timeOffsetSeconds * 1000;
-    console.log(timeOffsetHours + ':' + timeOffsetMinutes + ':'  + timeOffsetSeconds);
     datetime =  new Date(Date.now() + timeOffset);
+    if (utc) {
+      var datetimeUtc = datetime.getTime() + (datetime.getTimezoneOffset() * 60000);
+      datetime = new Date(datetimeUtc);
+    }
     h = datetime.getHours();
-    m = datetime.getMinutes();
+    i = datetime.getMinutes();
     s = datetime.getSeconds();
+    n = daysOfWeek[datetime.getDay()];
+    d = datetime.getDate();
+    m = monthsOfYear[datetime.getMonth()];
+    Y = datetime.getFullYear();
+
+    date = n + ', ' + d + ' ' +  m + ' ' + Y;
+    if (dateOnScreen.html() != date) {
+      showDate(date);
+    }
 
     // convert 24 to 12 and show the time hourly
-    if (m < 1 && s < 1) {
+    if (i < 1 && s < 1) {
       if (h == 0) {
         hoursShow(12);
       }
@@ -139,7 +170,7 @@ $(document).ready(function() {
     }
 
     // play sound on the half hour mark when audio isn't muted
-    if (m == 30 && s < 1) {
+    if (i == 30 && s < 1) {
       if (!mute) {
         audio = new Audio('bell.mp3');
         audio.play();
@@ -147,10 +178,10 @@ $(document).ready(function() {
     }
 
     // update digital clock
-    showDigitalClock(h,m,s);
+    showDigitalClock(h,i,s);
 
     // convert to seconds for TweenMax
-    minutesAsSeconds = m * 60;
+    minutesAsSeconds = i * 60;
     hoursAsSeconds = h * 60 * 60 + minutesAsSeconds;
     secondsAsSeconds = s / 60;
 
@@ -193,7 +224,8 @@ $(document).ready(function() {
   $('#subtractMinute').click(() => setTimeOffset('minutes', -1));
   $('#addTenSeconds').click(() => setTimeOffset('seconds', 10));
   $('#subtractTenSeconds').click(() => setTimeOffset('seconds', -10));
-  $('#resetTimeOffset').click(() => {timeOffsetHours = 0;timeOffsetMinutes = 0;timeOffsetSeconds = 0;});
+  $('#resetTimeOffset').click(() => {timeOffsetHours = 0;timeOffsetMinutes = 0;timeOffsetSeconds = 0;utc = true});
   muteButton.click(()=>{mute = true; TweenMax.to(muteButton, 0.5, {x: '-23px',autoAlpha:0});  TweenMax.to(unmuteButton, 0.5, {x: '0px',autoAlpha:1}); });
   unmuteButton.click(()=>{mute = false; TweenMax.to(unmuteButton, 0.5, {x: '0px',autoAlpha:0});  TweenMax.to(muteButton, 0.5, {x: '-23px', autoAlpha:1}); });
+  utcToggle.click(()=>{if (!utc) {utc = true; TweenMax.to(utcToggle, 1, {color: 'green'}); } else {utc = false; TweenMax.to(utcToggle, 1, {color: 'red'});}});
 });

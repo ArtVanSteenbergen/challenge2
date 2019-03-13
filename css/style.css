@@ -73,6 +73,8 @@ footer div {
 	padding: .25em;
 	user-select: none;
 	display: inline-block;
+	font-family: Work Regular;
+	font-weight: bold;
 }
 
 footer .longLabel {
@@ -85,6 +87,9 @@ footer .longLabel {
 	font-weight: 100;
 	position: absolute;
 	left: 50%;
+	top: 50%;
+	margin: 0;
+	padding: 0;
 	color: #ffffff;
 }
 
@@ -103,6 +108,20 @@ footer .longLabel {
   opacity: 0.5;
 }
 
+#date {
+	font-size: 1em;
+	font-family: 'Work Regular';
+	font-weight: 100;
+	position: absolute;
+	left: 50%;
+	top: 60%;
+	margin: 0;
+	padding: 0;
+	color: #ffffff;
+    width: 100%;
+    text-align: center;
+}
+
 .box{
   display: block;
   position: absolute;
@@ -112,14 +131,14 @@ footer .longLabel {
 }
 
 
-.second{
+.second {
   height: 130px;
   width: 2px;
   opacity: 0.5;
   background-color: white;
 }
 
-.minute{
+.minute {
   height: 100px;
   width: 5px;
   opacity: 0.5;
@@ -127,7 +146,7 @@ footer .longLabel {
   background-color: #ffffff;
 }
 
-.hour{
+.hour {
   height: 70px;
   width: 10px;
   opacity: 0.5;
@@ -138,15 +157,21 @@ footer .longLabel {
 	#digitalClock {
 		font-size: 6em;
 	}
+	#date {
+		font-size: 1.2em;
+	}
 }
 @media screen and (min-width: 640px) {
 	#digitalClock {
 		font-size: 10em;
 	}
+	#date {
+		font-size: 1.4em;
+	}
 	footer div {
 		padding: 0;
 	}
-	footer div .longLabel {
+	footer .longLabel {
 		display: inline-block;
 	}
 }
@@ -154,14 +179,26 @@ footer .longLabel {
 	#digitalClock {
 		font-size: 14em;
 	}
+	#date {
+		font-size: 2.5em;
+		top: 65%;
+	}
 }
 @media screen and (min-width: 1024px) {
 	main {
 		min-height: 100vh;
 	}
 
+	footer div {
+		padding: 0.5em;
+	}
+
 	#digitalClock {
 		font-size: 18em;
+	}
+	#date {
+		font-size: 3.5em;
+		top: 70%;
 	}
 	#analogClock {
 		width: 500px;
