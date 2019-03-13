@@ -84,6 +84,16 @@ $(document).ready(function() {
     paused: true
   });
 
+  function nth(d) {
+    if (d > 3 && d < 21) return d+'th'; 
+    switch (d % 10) {
+      case 1:  return d+"st";
+      case 2:  return d+"nd";
+      case 3:  return d+"rd";
+      default: return d+"th";
+    }
+  }
+
   // let Ripley tell the time hourly with a 'Ding' if audio isn't muted
   function hoursShow(h) {
     ripleyCurrentHour=0;
@@ -154,7 +164,7 @@ $(document).ready(function() {
     m = monthsOfYear[datetime.getMonth()];
     Y = datetime.getFullYear();
 
-    date = n + ', ' + d + ' ' +  m + ' ' + Y;
+    date = n + ', ' + m + ' ' +  nth(d) + ' ' + Y;
     if (dateOnScreen.html() != date) {
       showDate(date);
     }
