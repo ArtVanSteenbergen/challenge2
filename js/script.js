@@ -58,7 +58,9 @@ $(document).ready(function() {
   .from(analogClock, 2,{rotationX: '90deg',y: '-200px', autoAlpha: 0,  ease: Elastic.easeOut}, '-=1')
   .staggerFrom('footer div', 0.5, {x: '20px', autoAlpha: 0}, 0.1, '-=0.5')
   .fromTo(digitalClock, 3, {y: '50%', x:'-50%', autoAlpha: 0},{y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3')
-  .to(dateOnScreen, 3, {y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3');
+  .to(dateOnScreen, 3, {y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3')
+  .to('main', 3, {backgroundColor: 'rgba(0,0,0,0.5)', ease: Elastic.easeOut}, '-=3')
+  .to('main', 3, {backgroundColor: 'rgba(0,0,0,0.2)', ease: Linear.easeNone});
 
 
   var hourTween = TweenMax.to(pointerH, twelveHours, {
@@ -82,11 +84,11 @@ $(document).ready(function() {
     paused: true
   });
 
-  // let Ripley tell the time hourly with a "Ding" if audio isn't muted
+  // let Ripley tell the time hourly with a 'Ding' if audio isn't muted
   function hoursShow(h) {
     ripleyCurrentHour=0;
-    tl.fromTo(ripley, 1, {top: '600px', ease: Expo.easeOut},{top: '0px', ease: Expo.easeOut, onComplete:speak}, "ripley")
-    .fromTo(ripleySpeaks,0.25,{y: '20px', x: '40px', autoAlpha: 0, ease: Expo.easeOut},{y: '0px',x: '0px',autoAlpha: 1,ease: Expo.easeOut}, "ripley +0.1")
+    tl.fromTo(ripley, 1, {top: '600px', ease: Expo.easeOut},{top: '0px', ease: Expo.easeOut, onComplete:speak}, 'ripley')
+    .fromTo(ripleySpeaks,0.25,{y: '20px', x: '40px', autoAlpha: 0, ease: Expo.easeOut},{y: '0px',x: '0px',autoAlpha: 1,ease: Expo.easeOut}, 'ripley +0.1')
     .yoyo(true).paused(true);
 
     tl.restart().repeat(h*2-1);
@@ -121,7 +123,7 @@ $(document).ready(function() {
 
   function showDate(date) {
     if (dateOnScreen.html() != '') {
-      TweenMax.fromTo(dateOnScreen, 3, {top: '60%',y: '-150%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut},{top: '60%',y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut});
+      TweenMax.fromTo(dateOnScreen, 3, {y: '-150%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut},{y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut});
     }
     dateOnScreen.html(date);
   }
