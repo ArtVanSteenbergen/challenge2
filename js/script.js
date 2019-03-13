@@ -6,7 +6,7 @@ $(document).ready(function() {
   timeOffsetSeconds = 0,
 
   daysOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-  monthsOfYear = ['nope','January','February','March','April','May','June','July','August','September','October','November','December'],
+  monthsOfYear = ['January','February','March','April','May','June','July','August','September','October','November','December'],
   datetime = new Date(Date.now() + timeOffset),
   h = datetime.getHours(),
   i = datetime.getMinutes(),

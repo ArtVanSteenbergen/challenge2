@@ -118,8 +118,8 @@ footer .longLabel {
 	margin: 0;
 	padding: 0;
 	color: #ffffff;
-    width: 100%;
-    text-align: center;
+	width: 100%;
+	text-align: center;
 }
 
 .box{
@@ -159,6 +159,7 @@ footer .longLabel {
 	}
 	#date {
 		font-size: 1.2em;
+		top: 62%;
 	}
 }
 @media screen and (min-width: 640px) {
@@ -198,14 +199,14 @@ footer .longLabel {
 	}
 	#date {
 		font-size: 3.5em;
-		top: 70%;
+		top: 75%;
 	}
 	#analogClock {
 		width: 500px;
 		height: 500px;
-	    position: absolute;
-	    right: 128px;
-    	top: 64px;
+		position: absolute;
+		right: 128px;
+		top: 64px;
 	}
 	.hour {
 		height: 140px;
@@ -219,6 +220,14 @@ footer .longLabel {
 	}
 }
 
-@media screen and (min-width: 1440px) {
-
+@media screen and (min-width: 1024px) and (max-height: 500px) {
+	#date {
+		top: 80%;
+	}
+	#analogClock {
+		width: 460px;
+		height: 460px;
+		right: 32px;
+		top: 32px;
+	}
 }
