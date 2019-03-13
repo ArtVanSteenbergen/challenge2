@@ -40,7 +40,8 @@ $(document).ready(function() {
   fullDay = 24 * 60 * 60, //24 hour tween
   
   mute = true,
-  audio = new Audio();
+  bell = new Audio('bell.mp3'),
+  tick = new Audio('tick.mp3');
 
   TweenMax.set('.second, .hour, .minute', {
     yPercent: -50,
@@ -108,8 +109,8 @@ $(document).ready(function() {
   function speak() {
     ripleyCurrentHour++;
     if (!mute) {
-      audio = new Audio('bell.mp3');
-      audio.play();
+      bell = new Audio('bell.mp3');
+      bell.play();
     }
     $('#ripleySpeaks').html(ripleyCurrentHour);
   }
@@ -184,8 +185,8 @@ $(document).ready(function() {
     // play sound on the half hour mark when audio isn't muted
     if (i == 30 && s < 1) {
       if (!mute) {
-        audio = new Audio('bell.mp3');
-        audio.play();
+        bell = new Audio('bell.mp3');
+        bell.play();
       }
     }
 
@@ -226,7 +227,6 @@ $(document).ready(function() {
   setInterval(function() {
     showTime();
       if (!mute) {
-        var tick = new Audio('tick.mp3');
         tick.volume = 0.01;
         tick.play();
       }
