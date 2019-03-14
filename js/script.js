@@ -162,7 +162,6 @@ $(document).ready(function() {
     // play sound on the half hour mark when audio isn't muted
     if (i == 30 && s < 1) {
       if (!mute) {
-        bell = new Audio('bell.mp3');
         bell.play();
       }
     }
@@ -213,7 +212,6 @@ $(document).ready(function() {
     timeOffsetHours = 0;
     timeOffsetMinutes = 0;
     timeOffsetSeconds = 0;
-    utc = true;
   });
   MUTEBUTTON.click(()=>{
     mute = true;
