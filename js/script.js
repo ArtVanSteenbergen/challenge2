@@ -61,7 +61,7 @@ $(document).ready(function() {
   // initial animations to set up elements in a "beautiful" way
   init.set('.second, .hour, .minute', {yPercent: -50, transformOrigin: '50% 100%'}).set(DATEONSCREEN, {y: '50%', x:'-50%', autoAlpha: 0})
   .fromTo(HTML, 2,{backgroundImage: 'url()',backgroundPosition: '0 500%', backgroundRepeat: 'no-repeat'},{backgroundImage: 'url(img/mars.png)',backgroundPosition: '0 100%', backgroundRepeat: 'no-repeat'})
-  .from('footer', 2,{y: '-1000%', autoAlpha: 0,  ease: Bounce.easeOut}, '-=2')
+  .from('footer', 2,{y: '64px', autoAlpha: 0,  ease: Power4.easeOut}, '-=2')
   .from(ANALOGCLOCK, 2,{rotationX: '90deg',y: '-200px', autoAlpha: 0,  ease: Elastic.easeOut}, '-=1')
   .staggerFrom('footer div', 0.5, {x: '20px', autoAlpha: 0}, 0.1, '-=0.5')
   .fromTo(DIGITALCLOCK, 3, {y: '50%', x:'-50%', autoAlpha: 0},{y: '-50%',x: '-50%', autoAlpha: 1, ease: Elastic.easeOut}, '-=3')
